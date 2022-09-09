@@ -11,8 +11,6 @@ RUN apt-get update && \
     build-essential \
     git \
     vim \
-    wget \
-    curl \
     openssl \
     libssl-dev \
     libssl1.1 \ 
