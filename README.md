@@ -10,7 +10,7 @@
 ### Django Web run
 ```git clone https://github.com/wangrh-python/Network_ai_web.git ```
 
-```cd /Network_ai_web/django_web```
+```cd Network_ai_web/django_web```
 
 ```python3 manage.py runserver 0.0.0.0:9999```
 
