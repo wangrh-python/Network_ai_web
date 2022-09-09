@@ -8,6 +8,10 @@
 ```docker exec -it django_web /bin/bash```
 
 ### Django Web run
+```git clone https://github.com/wangrh-python/Network_ai_web.git ```
+
 ```cd /Network_ai_web/django_web```
 
 ```python3 manage.py runserver 0.0.0.0:9999```
+
+```Enter in the URL of the browser --> server IP address : port```
