@@ -1,0 +1,26 @@
+FROM ubuntu:20.04
+
+ENV DEBIAN_FRONTEND=noninteractive \
+    TZ=Asia/Shanghai
+
+ENV http_proxy="http://child-prc.intel.com:913/" \
+    https_proxy="https://child-prc.intel.com:913/"
+
+RUN apt-get update && \
+    apt-get install -y tzdata \
+    build-essential \
+    git \
+    vim \
+    wget \
+    curl \
+    openssl \
+    libssl-dev \
+    libssl1.1 \ 
+    python3-pip \
+    python3 \
+    && cp /usr/bin/python3.8 /usr/bin/python \
+    && dpkg-reconfigure tzdata
+
+RUN pip3 install --upgrade pip && \
+    pip3 install Django==3.2
+
