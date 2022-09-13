@@ -3,9 +3,6 @@ FROM ubuntu:20.04
 ENV DEBIAN_FRONTEND=noninteractive \
     TZ=Asia/Shanghai
 
-ENV http_proxy="http://child-prc.intel.com:913/" \
-    https_proxy="https://child-prc.intel.com:913/"
-
 RUN apt-get update && \
     apt-get install -y tzdata \
     build-essential \
