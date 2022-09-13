@@ -1,7 +1,7 @@
 # Network_ai_web
 ```web of data show```
 ### Dockerfile build
-```docker build --build-arg http_proxy="http://child-prc.intel.com:913" --build-arg https_proxy="http://child-prc.intel.com:913" --force-rm --no-cache -t xxx:django_web . ```
+```docker build --build-arg http_proxy="http://xxx.com:888" --build-arg https_proxy="https://xxx.com:888" --force-rm --no-cache -t xxx:django_web . ```
 ### Docker images run
 ```docker run -itd --name=django_web -p 9999:9999 xxx:django_web /bin/bash```
 
