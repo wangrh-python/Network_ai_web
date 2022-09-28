@@ -13,6 +13,7 @@ RUN apt-get update && \
     libssl1.1 \ 
     python3-pip \
     python3 \
+    python3-dev \
     && cp /usr/bin/python3.8 /usr/bin/python \
     && dpkg-reconfigure tzdata
 
