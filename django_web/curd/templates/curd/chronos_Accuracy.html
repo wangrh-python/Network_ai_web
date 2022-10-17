@@ -28,16 +28,16 @@
                 <div class="form-group row">
                   <label for="exampleInputEmail1">Model</label>
                   <div class="col-sm-2">
-                    <div class="form-check form-check-warning">
+                    <div>
                       <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" name="model" value="lstm">
+                        <input type="checkbox" class="form-check-input" name="model" value="lstm" checked>
                         LSTM
                       </label>
                     </div>
                   </div>
 
                   <div class="col-sm-2">
-                    <div class="form-check form-check-primary">
+                    <div>
                       <label class="form-check-label">
                         <input type="checkbox" class="form-check-input" name="model" value="seq2seq">
                         Seq2Seq
@@ -46,7 +46,7 @@
                   </div>
 
                   <div class="col-sm-2">
-                    <div class="form-check form-check-success">
+                    <div>
                       <label class="form-check-label">
                         <input type="checkbox" class="form-check-input" name="model" value="tcn">
                         TCN
@@ -55,7 +55,7 @@
                   </div>
 
                   <div class="col-sm-2">
-                    <div class="form-check form-check-info">
+                    <div>
                       <label class="form-check-label">
                         <input type="checkbox" class="form-check-input" name="model" value="mtnet">
                         MTNet
@@ -64,7 +64,7 @@
                   </div>
 
                   <div class="col-sm-2">
-                    <div class="form-check form-check-danger">
+                    <div>
                       <label class="form-check-label">
                         <input type="checkbox" class="form-check-input" name="model" value="prophet">
                         Prophet
@@ -73,7 +73,7 @@
                   </div>
 
                   <div class="col-sm-2">
-                    <div class="form-check">
+                    <div>
                       <label class="form-check-label">
                         <input type="checkbox" class="form-check-input" name="model" value="arima">
                         ARIMA
@@ -149,11 +149,11 @@
         $.ajaxSetup({
             data:{csrfmiddlewaretoken:'{{ csrf_token }}'}
         })
-        let platform = $('#platform').val();
-        let framework = $('#framework').val();
-        let date = $('#date').val();
 
         function chronos_Accuracy() {
+          let platform = $('#platform').val();
+          let framework = $('#framework').val();
+          let date = $('#date').val();
             let model = $('input:checkbox[name="model"]:checked').map(function () {return $(this).val()}).get();
             let model_box = document.getElementsByName("model");
             let box = "";
@@ -165,7 +165,6 @@
             if (box=="") {
                 return false
             }
-
             $.ajax({
                 type:'POST',
                 url:'{% url "curd:chronos_accuracy_view" %}',

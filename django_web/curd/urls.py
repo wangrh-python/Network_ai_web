@@ -2,6 +2,8 @@ from django.urls import path
 from . import views
 
 
+app_name = 'curd'
+
 urlpatterns = [
 
     path('chronos/performance/', views.chronos_performance, name='chronos_performance'),
