@@ -1,133 +1,122 @@
 {% load static %}
 <!DOCTYPE html>
-
-<!-- Breadcrumb-->
 <html lang="en">
-  <head>
-    <base href="./">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <meta name="description" content="index Bootstrap  Template">
-    <meta name="author" content="Łukasz Holeczek">
-    <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
-      {% block title %}
-          <title>index Bootstrap Template</title>
-      {% endblock title %}
 
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favicon-32x32.png' %}">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <!-- Vendors styles-->
-  <link rel="stylesheet" href="{% static 'css/simplebar.css' %}">
-  <!-- Main styles for this application-->
-  <link href="{% static 'css/style.css' %}" rel="stylesheet">
-  <link href="{% static 'css/coreui.min.css' %}" rel="stylesheet">
+  {% block base_title %}
+      <title>base</title>
+  {% endblock base_title %}
 
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag('js', new Date());
-      // Shared ID
-      gtag('config', 'UA-118965717-3');
-      // Bootstrap ID
-      gtag('config', 'UA-118965717-5');
-    </script>
+  <!-- plugins:css -->
+    <link rel="stylesheet" href="{% static 'curd/css/feather.css' %}">
+    <link rel="stylesheet" href="{% static 'curd/css/materialdesignicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'curd/css/themify-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'curd/css/typicons.css' %}">
+    <link rel="stylesheet" href="{% static 'curd/css/simple-line-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'curd/css/vendor.bundle.base.css' %}">
+    <link rel="stylesheet" href="{% static 'curd/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'curd/img/favicon.png' %}">
+</head>
 
-  </head>
-  <body>
-    <div class="sidebar sidebar-dark sidebar-fixed" id="sidebar">
-      <div class="sidebar-brand d-none d-md-flex">
-        Home
-      </div>
-      <!-- 左侧菜单栏开始 -->
-        <ul class="sidebar-nav" data-coreui="navigation" data-simplebar="">
+<body>
+  <div class="container-scroller">
+    <!-- partial:../../partials/_navbar.html -->
 
-         <!-- 第一段标题 -->
-         <li class="nav-title">Network-AI-Toolkit</li>
-
-        <li class="nav-item"><a class="nav-link" href="{% url 'index' %}" id="ajax_index">
-            <svg class="nav-icon">
-            </svg> HW Configuration</a></li>
-
-         <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
-             <svg class="nav-icon">
-             </svg> Chronos</a>
-             <ul class="nav-group-items">
-                 <li class="nav-item"><a class="nav-link" href="{% url 'chronos_performance' %}" id="chronos_perf"><span class="nav-icon"></span> Performance</a></li>
-                 <li class="nav-item"><a class="nav-link" href="{% url 'chronos_accuracy' %}" id="chronos_acc"><span class="nav-icon"></span> Accuracy</a></li>
-             </ul>
-         </li>
-
-        <!-- 第二段标题 -->
-
-      </ul>
-      <button class="sidebar-toggler" type="button" data-coreui-toggle="unfoldable"></button>
-    </div>
-    <div class="wrapper d-flex flex-column min-vh-100 bg-light">
-      <header class="header header-sticky mb-4">
-        <div class="container-fluid">
-          <button class="header-toggler px-md-0 me-md-3" type="button" onclick="coreui.Sidebar.getInstance(document.querySelector('#sidebar')).toggle()">
-            <svg class="icon icon-lg">
-            </svg>
-          </button><a class="header-brand d-md-none" href="#">
-            <svg width="118" height="46" alt="CoreUI Logo">
-            </svg></a>
-            <!-- 登录退出 -->
-          <ul class="header-nav d-none d-md-flex">
-            <li class="nav-item"><a class="nav-link" >Login</a></li>
-            <li class="nav-item"><a class="nav-link" >Logout</a></li>
-            <li class="nav-item"><a class="nav-link" >Welcome User</a></li>
-          </ul>
-          <ul class="header-nav ms-auto">
-            <li class="nav-item"><a class="nav-link" href="#">
-                <svg class="icon icon-lg">
-                </svg></a></li>
-            <li class="nav-item"><a class="nav-link" href="#">
-                <svg class="icon icon-lg">
-                </svg></a></li>
-            <li class="nav-item"><a class="nav-link" href="#">
-                <svg class="icon icon-lg">
-                </svg></a></li>
-          </ul>
-
+    <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
+        <div class="me-3">
+          <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-bs-toggle="minimize">
+            <span class="icon-menu"></span>
+          </button>
         </div>
 
-      </header>
-      <!-- 主页数据展示 -->
-      <div class="body flex-grow-1 px-3">
-
-          <!-- base 模板 ---- 模板继承 -->
-            {% block content %}
-
-            <!--  子模版继承内容  -->
-
-            {% endblock content %}
-
-
-
       </div>
-      <footer class="footer">
-        <div>Project created in 2022-09</div>
-        <div class="ms-auto">Powered by&nbsp;♂</div>
-      </footer>
+      <div class="navbar-menu-wrapper d-flex align-items-top"> 
+        <ul class="navbar-nav">
+          <li class="nav-item font-weight-semibold d-none d-lg-block ms-0">
+            <h1 class="welcome-text">Welcome to <span class="text-black fw-bold">Network-AI Performance Dashboard</span></h1>
+{#            <h3 class="welcome-sub-text">Your performance summary this week </h3>#}
+          </li>
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-bs-toggle="offcanvas">
+          <span class="mdi mdi-menu"></span>
+        </button>
+      </div>
+    </nav>
+    <!-- partial -->
+
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:../../partials/_settings-panel.html -->
+
+      <!-- partial -->
+      <!-- partial:../../partials/_sidebar.html -->
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link">
+              <i class="mdi mdi-grid-large menu-icon"></i>
+              <span class="menu-title">HW Configuration</span>
+            </a>
+          </li>
+
+          <li class="nav-item nav-category">Network-AI-Toolkit</li>
+
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
+              <i class="menu-icon mdi mdi-table"></i>
+              <span class="menu-title">Chronos</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="tables">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="{% url 'curd:chronos_performance' %}"> Performance</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'curd:chronos_accuracy' %}"> Accuracy</a></li>
+              </ul>
+            </div>
+          </li>
+
+        </ul>
+      </nav>
+      <!-- table -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+
+            {% block base_content %}
+
+            {% endblock base_content %}
+        <!-- content-wrapper ends -->
+        <!-- partial:../../partials/_footer.html -->
+        <footer class="footer">
+          <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Project created in 2022-09</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Powered by&nbsp;♂</span>
+          </div>
+        </footer>
+        <!-- partial -->
+      </div>
+      <!-- table end-->
+      </div>>
+      <!-- main-panel ends -->
     </div>
-  <!-- ajax -->
-  <script src="{% static 'js/jquery-3.6.1.min.js' %}"></script>
-  <!-- CoreUI and necessary plugins-->
-  <script src="{% static 'js/simplebar.min.js' %}"></script>
-  <!-- Plugins and scripts required by this view-->
-  <script src="{% static 'js/coreui-utils.js' %}"></script>
-  <script src="{% static 'js/popper.mini.js' %}"></script>
-  <script src="{% static 'js/coreui-pro.bundle.min.js' %}"></script>
-  <script src="{% static 'css/coreui-pro.min.css' %}"></script>
+    <!-- page-body-wrapper ends -->
+  </div>
 
-  <script>
+  <script src="{% static 'curd/js/vendor.bundle.base.js' %}"></script>
+  <script src="{% static 'curd/js/bootstrap-datepicker.min.js' %}"></script>
+  <script src="{% static 'curd/js/off-canvas.js' %}"></script>
+  <script src="{% static 'curd/js/hoverable-collapse.js' %}"></script>
+  <script src="{% static 'curd/js/template.js' %}"></script>
+  <script src="{% static 'curd/js/settings.js' %}"></script>
+  <script src="{% static 'curd/js/todolist.js' %}"></script>
 
-  </script>
   {% block script %}
 
   {% endblock script %}
-  </body>
+
+</body>
+
 </html>

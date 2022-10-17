@@ -1,0 +1,203 @@
+{% extends "curd/base.html" %}
+
+{% load static %}
+
+{% block base_title %}
+    <title>Chronos-Accuracy</title>
+{% endblock base_title %}
+
+{% block base_content %}
+    <div class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Accuracy Menu</h4>
+              <!-- <p class="card-description">
+                Basic form layout
+              </p> -->
+              <form class="forms-sample" method="post" action="{% url 'curd:chronos_accuracy_view'%}">
+                  {% csrf_token %}
+                <div class="form-group">
+                  <label for="exampleInputUsername1">Platform</label>
+                  <select class="form-control" id="platform">
+                    <option value="icl">icl</option>
+                    <option value="spr">spr</option>
+                  </select>
+                </div>
+
+                <div class="form-group row">
+                  <label for="exampleInputEmail1">Model</label>
+                  <div class="col-sm-2">
+                    <div class="form-check form-check-warning">
+                      <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input" name="model" value="lstm">
+                        LSTM
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-2">
+                    <div class="form-check form-check-primary">
+                      <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input" name="model" value="seq2seq">
+                        Seq2Seq
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-2">
+                    <div class="form-check form-check-success">
+                      <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input" name="model" value="tcn">
+                        TCN
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-2">
+                    <div class="form-check form-check-info">
+                      <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input" name="model" value="mtnet">
+                        MTNet
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-2">
+                    <div class="form-check form-check-danger">
+                      <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input" name="model" value="prophet">
+                        Prophet
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-2">
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input" name="model" value="arima">
+                        ARIMA
+                      </label>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Framework</label>
+                  <select class="form-control" id="framework">
+                    <option value="pytorch_with_automl">PyTorch with AutoML</option>
+                    <option value="pytorch_without_automl">PyTorch without AutoML</option>
+                    <option value="onnx_without_automl">ONNX without AutoML</option>
+                    <option value="openvino_without_automl">OpenVINO without AutoML</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="exampleInputConfirmPassword1">Date</label>
+                  <select class="form-control" id="date">
+                    <option value="WW40">WW40</option>
+                  </select>
+                </div>
+
+                <div class="form-group col-sm-12">
+                  <button type="button" class="btn btn-outline-success btn-fw col-sm-12" onclick="chronos_Accuracy()">Select</button>
+                </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-12 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Accuracy Data Table</h4>
+              <!-- <p class="card-description">
+                Add class <code>.table-hover</code>
+              </p> -->
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Platform</th>
+                      <th>Model</th>
+                      <th>Model precision</th>
+                      <th>look_back / horizon</th>
+                      <th>Training Time</th>
+                      <th>sMAPE for AvgRate</th>
+                      <th>sMAPE for total</th>
+                      <th>MSE for AvgRate</th>
+                      <th>MSE for total</th>
+                    </tr>
+                  </thead>
+
+                  <tbody id="table_list">
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+{% endblock base_content %}
+
+{% block script %}
+    <script>
+
+        $.ajaxSetup({
+            data:{csrfmiddlewaretoken:'{{ csrf_token }}'}
+        })
+        let platform = $('#platform').val();
+        let framework = $('#framework').val();
+        let date = $('#date').val();
+
+        function chronos_Accuracy() {
+            let model = $('input:checkbox[name="model"]:checked').map(function () {return $(this).val()}).get();
+            let model_box = document.getElementsByName("model");
+            let box = "";
+            for (let i=0;i<model_box.length;i++){
+                if (model_box[i].checked == true){
+                    box+=model_box[i].value+",";
+                }
+            }
+            if (box=="") {
+                return false
+            }
+
+            $.ajax({
+                type:'POST',
+                url:'{% url "curd:chronos_accuracy_view" %}',
+                traditional: true,
+                data:{'platform':platform,'model':model,'framework':framework,'date':date},
+                dataType:'json',
+                success: function (json_list_array) {
+                    rm_tr();
+                    create_tr(json_list_array);
+                }
+            })
+        }
+
+        function rm_tr() {
+            let mapLoading = document.querySelector('tbody');
+            while (mapLoading.firstChild){
+                mapLoading.removeChild(mapLoading.firstChild);
+            }
+        }
+
+        function create_tr(json_list_array) {
+            let mapLoading = document.querySelector('tbody');
+            $.each(json_list_array,function (index,list) {
+                let table_tr = document.createElement('tr')
+                $.each(list,function (key,value) {
+                    let table_td = document.createElement("td")
+                    table_td.innerText=value;
+                    table_tr.appendChild(table_td);
+                })
+                mapLoading.appendChild(table_tr);
+
+            })
+        }
+  </script>
+{% endblock script %}
