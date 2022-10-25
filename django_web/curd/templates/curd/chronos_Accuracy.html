@@ -17,14 +17,30 @@
               </p> -->
               <form class="forms-sample" method="post" action="{% url 'curd:chronos_accuracy_view'%}">
                   {% csrf_token %}
+                  <div class="form-group">
+                    <label for="exampleInputUsername1">Platform</label>
+                    <select class="form-control" id="platform">
+                      <option value="icl">IceLake</option>
+                      <option value="spr">Sapphire Rapids</option>
+                    </select>
+                  </div>
+
                 <div class="form-group">
-                  <label for="exampleInputUsername1">Platform</label>
-                  <select class="form-control" id="platform">
-                    <option value="icl">icl</option>
-                    <option value="spr">spr</option>
+                  <label for="exampleInputPassword1">Framework</label>
+                  <select class="form-control" id="framework">
+                    <option value="pytorch_with_automl">PyTorch with AutoML</option>
+                    <option value="pytorch_without_automl">PyTorch without AutoML</option>
+                    <option value="onnx_without_automl">ONNX without AutoML</option>
+                    <option value="openvino_without_automl">OpenVINO without AutoML</option>
                   </select>
                 </div>
 
+                <div class="form-group">
+                  <label for="exampleInputConfirmPassword1">Date</label>
+                  <select class="form-control" id="date">
+                    <option value="WW40">WW40</option>
+                  </select>
+                </div>
                 <div class="form-group row">
                   <label for="exampleInputEmail1">Model</label>
                   <div class="col-sm-2">
@@ -81,22 +97,6 @@
                     </div>
                   </div>
 
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Framework</label>
-                  <select class="form-control" id="framework">
-                    <option value="pytorch_with_automl">PyTorch with AutoML</option>
-                    <option value="pytorch_without_automl">PyTorch without AutoML</option>
-                    <option value="onnx_without_automl">ONNX without AutoML</option>
-                    <option value="openvino_without_automl">OpenVINO without AutoML</option>
-                  </select>
-                </div>
-
-                <div class="form-group">
-                  <label for="exampleInputConfirmPassword1">Date</label>
-                  <select class="form-control" id="date">
-                    <option value="WW40">WW40</option>
-                  </select>
                 </div>
 
                 <div class="form-group col-sm-12">

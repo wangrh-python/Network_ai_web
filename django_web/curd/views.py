@@ -4,6 +4,11 @@ from django.db import connection
 import json
 
 
+def index(request):
+
+    return render(request, 'curd/HW_Configuration.html')
+
+
 def chronos_performance(request):
 
     return render(request, 'curd/chronos_Performance.html')
