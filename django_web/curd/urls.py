@@ -2,9 +2,10 @@ from django.urls import path
 from . import views
 
 
+app_name = 'curd'
+
 urlpatterns = [
 
-    path('login/', views.login, name='login'),
     path('index/', views.index, name='index'),
     path('chronos/performance/', views.chronos_performance, name='chronos_performance'),
     path('chronos/performance/view/', views.chronos_performance_view, name='chronos_performance_view'),

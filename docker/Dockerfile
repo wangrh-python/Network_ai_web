@@ -14,6 +14,7 @@ RUN apt-get update && \
     python3-pip \
     python3 \
     python3-dev \
+    default-libmysqlclient-dev \
     && cp /usr/bin/python3.8 /usr/bin/python \
     && dpkg-reconfigure tzdata
 
