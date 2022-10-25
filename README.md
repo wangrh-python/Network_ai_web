@@ -8,6 +8,8 @@
 ```docker exec -it django_web /bin/bash```
 
 ### Django Web run
+```Django==3.2 version```
+
 ```git clone https://github.com/wangrh-python/Network_ai_web.git ```
 
 ```cd Network_ai_web/django_web```
