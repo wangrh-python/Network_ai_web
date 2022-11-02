@@ -1,0 +1,129 @@
+{% extends "curd/base.html" %}
+
+{% load static %}
+
+{% block base_title %}
+    <title>NAAL-Performance</title>
+{% endblock base_title %}
+
+{% block base_content %}
+    <div class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">NAAL Performance Menu</h4>
+
+              <form class="forms-sample" method="post" action="{% url 'curd:naal_performance_view'%}">
+                  {% csrf_token %}
+                <div class="form-group">
+                  <label for="exampleInputUsername1">Platform</label>
+                  <select class="form-control" id="platform">
+                    <option value="icl">IceLake</option>
+                    <option value="spr">Sapphire Rapids</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Framework</label>
+                  <select class="form-control" id="framework">
+                    <option value="TF">TensorFlow</option>
+                    <option value="OV">OpenVINO</option>
+                    <option value="c++ ori">C++ Original</option>
+                    <option value="c++ opt">C++ Optimized</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="exampleInputConfirmPassword1">Date</label>
+                  <select class="form-control" id="date">
+                    <option value="WW40">WW40</option>
+                    <option value="WW43">WW43</option>
+                  </select>
+                </div>
+                
+                <div class="form-group col-sm-12">
+                  <button type="button" class="btn btn-outline-success btn-fw col-sm-12" onclick="naal_Performance()">Select</button>
+                </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-12 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">NAAL Performance Data Table</h4>
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Platform</th>
+                      <th>Core Number</th>
+                      <th>Framework</th>
+                      <th>Batch Size</th>
+                      <th>Model</th>
+                      <th>inference time</th>
+                      <th>Throughput</th>
+                      <th>Latency</th>
+                      <th>Date</th>
+                    </tr>
+                  </thead>
+
+                  <tbody id="table_list">
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+{% endblock base_content %}
+
+{% block script %}
+    <script>
+
+        $.ajaxSetup({
+            data:{csrfmiddlewaretoken:'{{ csrf_token }}'}
+        })
+        function naal_Performance() {
+          let platform = $('#platform').val();
+          let framework = $('#framework').val();
+          let date = $('#date').val();
+            $.ajax({
+                type:'POST',
+                url:'{% url "curd:naal_performance_view" %}',
+                traditional: true,
+                data:{'platform':platform,'framework':framework,'date':date},
+                dataType:'json',
+                success: function (json_list_array) {
+                    rm_tr();
+                    create_tr(json_list_array);
+                }
+            })
+        }
+
+        function rm_tr() {
+            let mapLoading = document.querySelector('tbody');
+            while (mapLoading.firstChild){
+                mapLoading.removeChild(mapLoading.firstChild);
+            }
+        }
+
+        function create_tr(json_list_array) {
+            let mapLoading = document.querySelector('tbody');
+            $.each(json_list_array,function (index,list) {
+                let table_tr = document.createElement('tr')
+                $.each(list,function (key,value) {
+                    let table_td = document.createElement("td")
+                    table_td.innerText=value;
+                    table_tr.appendChild(table_td);
+                })
+                mapLoading.appendChild(table_tr);
+
+            })
+        }
+  </script>
+{% endblock script %}

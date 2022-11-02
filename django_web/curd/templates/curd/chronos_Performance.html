@@ -11,7 +11,7 @@
         <div class="col-md-12 grid-margin stretch-card">
           <div class="card">
             <div class="card-body">
-              <h4 class="card-title">Performance Menu</h4>
+              <h4 class="card-title">Chronos Performance Menu</h4>
 
               <form class="forms-sample" method="post" action="{% url 'curd:chronos_performance_view'%}">
                   {% csrf_token %}
@@ -36,6 +36,7 @@
                   <label for="exampleInputConfirmPassword1">Date</label>
                   <select class="form-control" id="date">
                     <option value="WW40">WW40</option>
+                    <option value="WW43">WW43</option>
 
                   </select>
                 </div>
@@ -110,7 +111,7 @@
         <div class="col-lg-12 grid-margin stretch-card">
           <div class="card">
             <div class="card-body">
-              <h4 class="card-title">Performance Data Table</h4>
+              <h4 class="card-title">Chronos Performance Data Table</h4>
               <!-- <p class="card-description">
                 Add class <code>.table-hover</code>
               </p> -->
@@ -125,6 +126,7 @@
                       <th>Training Time</th>
                       <th>Throughput</th>
                       <th>Latency</th>
+                      <th>Date</th>
                     </tr>
                   </thead>
 
