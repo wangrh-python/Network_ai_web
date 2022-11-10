@@ -65,12 +65,12 @@ class MachineInfo(models.Model):
 
 class OnnxWithoutAutoml(models.Model):
     training_time = models.CharField(max_length=50, blank=True, null=True)
-    smape_for_avgrate = models.CharField(db_column='sMAPE_for_AvgRate', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    smape_for_total = models.CharField(db_column='sMAPE_for_total', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    mse_for_avgrate = models.CharField(db_column='MSE_for_AvgRate', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    mse_for_total = models.CharField(db_column='MSE_for_total', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    throughput = models.CharField(db_column='Throughput', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    latency = models.CharField(db_column='Latency', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    smape_for_avgrate = models.CharField(db_column='sMAPE_for_AvgRate', max_length=50, blank=True, null=True)
+    smape_for_total = models.CharField(db_column='sMAPE_for_total', max_length=50, blank=True, null=True)
+    mse_for_avgrate = models.CharField(db_column='MSE_for_AvgRate', max_length=50, blank=True, null=True)
+    mse_for_total = models.CharField(db_column='MSE_for_total', max_length=50, blank=True, null=True)
+    throughput = models.CharField(db_column='Throughput', max_length=50, blank=True, null=True)
+    latency = models.CharField(db_column='Latency', max_length=50, blank=True, null=True)
     test_date = models.CharField(max_length=100, blank=True, null=True)
     type_id = models.IntegerField(blank=True, null=True)
     machine_id = models.IntegerField(blank=True, null=True)
@@ -83,12 +83,12 @@ class OnnxWithoutAutoml(models.Model):
 
 class OpenvinoWithoutAutoml(models.Model):
     training_time = models.CharField(max_length=50, blank=True, null=True)
-    smape_for_avgrate = models.CharField(db_column='sMAPE_for_AvgRate', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    smape_for_total = models.CharField(db_column='sMAPE_for_total', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    mse_for_avgrate = models.CharField(db_column='MSE_for_AvgRate', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    mse_for_total = models.CharField(db_column='MSE_for_total', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    throughput = models.CharField(db_column='Throughput', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    latency = models.CharField(db_column='Latency', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    smape_for_avgrate = models.CharField(db_column='sMAPE_for_AvgRate', max_length=50, blank=True, null=True)
+    smape_for_total = models.CharField(db_column='sMAPE_for_total', max_length=50, blank=True, null=True)
+    mse_for_avgrate = models.CharField(db_column='MSE_for_AvgRate', max_length=50, blank=True, null=True)
+    mse_for_total = models.CharField(db_column='MSE_for_total', max_length=50, blank=True, null=True)
+    throughput = models.CharField(db_column='Throughput', max_length=50, blank=True, null=True)
+    latency = models.CharField(db_column='Latency', max_length=50, blank=True, null=True)
     test_date = models.CharField(max_length=100, blank=True, null=True)
     type_id = models.IntegerField(blank=True, null=True)
     machine_id = models.IntegerField(blank=True, null=True)
@@ -101,16 +101,16 @@ class OpenvinoWithoutAutoml(models.Model):
 
 class PytorchWithAutoml(models.Model):
     training_time = models.CharField(max_length=50, blank=True, null=True)
-    smape_for_avgrate = models.CharField(db_column='sMAPE_for_AvgRate', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    smape_for_total = models.CharField(db_column='sMAPE_for_total', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    mse_for_avgrate = models.CharField(db_column='MSE_for_AvgRate', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    mse_for_total = models.CharField(db_column='MSE_for_total', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    smape_for_avgrate = models.CharField(db_column='sMAPE_for_AvgRate', max_length=50, blank=True, null=True)
+    smape_for_total = models.CharField(db_column='sMAPE_for_total', max_length=50, blank=True, null=True)
+    mse_for_avgrate = models.CharField(db_column='MSE_for_AvgRate', max_length=50, blank=True, null=True)
+    mse_for_total = models.CharField(db_column='MSE_for_total', max_length=50, blank=True, null=True)
     test_date = models.CharField(max_length=50, blank=True, null=True)
     type_id = models.IntegerField(blank=True, null=True)
     machine_id = models.IntegerField(blank=True, null=True)
     submission_date = models.DateTimeField()
-    throughput = models.CharField(db_column='Throughput', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    latency = models.CharField(db_column='Latency', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    throughput = models.CharField(db_column='Throughput', max_length=50, blank=True, null=True)
+    latency = models.CharField(db_column='Latency', max_length=50, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -119,12 +119,12 @@ class PytorchWithAutoml(models.Model):
 
 class PytorchWithoutAutoml(models.Model):
     training_time = models.CharField(max_length=50, blank=True, null=True)
-    smape_for_avgrate = models.CharField(db_column='sMAPE_for_AvgRate', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    smape_for_total = models.CharField(db_column='sMAPE_for_total', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    mse_for_avgrate = models.CharField(db_column='MSE_for_AvgRate', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    mse_for_total = models.CharField(db_column='MSE_for_total', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    throughput = models.CharField(db_column='Throughput', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    latency = models.CharField(db_column='Latency', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    smape_for_avgrate = models.CharField(db_column='sMAPE_for_AvgRate', max_length=50, blank=True, null=True)
+    smape_for_total = models.CharField(db_column='sMAPE_for_total', max_length=50, blank=True, null=True)
+    mse_for_avgrate = models.CharField(db_column='MSE_for_AvgRate', max_length=50, blank=True, null=True)
+    mse_for_total = models.CharField(db_column='MSE_for_total', max_length=50, blank=True, null=True)
+    throughput = models.CharField(db_column='Throughput', max_length=50, blank=True, null=True)
+    latency = models.CharField(db_column='Latency', max_length=50, blank=True, null=True)
     test_date = models.CharField(max_length=100, blank=True, null=True)
     type_id = models.IntegerField(blank=True, null=True)
     machine_id = models.IntegerField(blank=True, null=True)
@@ -145,3 +145,30 @@ class TkDataType(models.Model):
     class Meta:
         managed = False
         db_table = 'tk_data_type'
+
+
+class NaalDataType(models.Model):
+    data_id = models.AutoField(primary_key=True)
+    core_number = models.CharField(max_length=50, blank=True, null=True)
+    batch_size = models.CharField(max_length=50, blank=True, null=True)
+    model = models.CharField(max_length=50, blank=True, null=True)
+    submission_date = models.DateTimeField()
+
+    class Meta:
+        managed = False
+        db_table = 'naal_data_type'
+
+
+class NaalPerformanceData(models.Model):
+    inference_mean_time = models.CharField(max_length=50, blank=True, null=True)
+    latency_average_time = models.CharField(max_length=50, blank=True, null=True)
+    throughput_fps_field = models.CharField(db_column='throughput(FPS)', max_length=50, blank=True, null=True)
+    framework = models.CharField(max_length=50, blank=True, null=True)
+    test_date = models.CharField(max_length=100, blank=True, null=True)
+    type_id = models.IntegerField(blank=True, null=True)
+    machine_id = models.IntegerField(blank=True, null=True)
+    submission_date = models.DateTimeField()
+
+    class Meta:
+        managed = False
+        db_table = 'naal_performance_data'

@@ -8,24 +8,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   {% block base_title %}
-      <title>base</title>
+  <title>base</title>
   {% endblock base_title %}
 
   <!-- plugins:css -->
-    <link rel="stylesheet" href="{% static 'curd/css/feather.css' %}">
-    <link rel="stylesheet" href="{% static 'curd/css/materialdesignicons.min.css' %}">
-    <link rel="stylesheet" href="{% static 'curd/css/themify-icons.css' %}">
-    <link rel="stylesheet" href="{% static 'curd/css/typicons.css' %}">
-    <link rel="stylesheet" href="{% static 'curd/css/simple-line-icons.css' %}">
-    <link rel="stylesheet" href="{% static 'curd/css/vendor.bundle.base.css' %}">
-    <link rel="stylesheet" href="{% static 'curd/css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'curd/img/favicon.png' %}">
+  <link rel="stylesheet" href="{% static 'curd/css/feather.css' %}">
+  <link rel="stylesheet" href="{% static 'curd/css/materialdesignicons.min.css' %}">
+  <link rel="stylesheet" href="{% static 'curd/css/themify-icons.css' %}">
+  <link rel="stylesheet" href="{% static 'curd/css/typicons.css' %}">
+  <link rel="stylesheet" href="{% static 'curd/css/simple-line-icons.css' %}">
+  <link rel="stylesheet" href="{% static 'curd/css/vendor.bundle.base.css' %}">
+  <link rel="stylesheet" href="{% static 'curd/css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'curd/img/favicon.png' %}">
 </head>
 
 <body>
   <div class="container-scroller">
     <!-- partial:../../partials/_navbar.html -->
-
+    
     <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
         <div class="me-3">
@@ -33,7 +33,6 @@
             <span class="icon-menu"></span>
           </button>
         </div>
-        
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-top"> 
         <ul class="navbar-nav">
@@ -41,20 +40,18 @@
             <h1 class="welcome-text">Welcome to <span class="text-black fw-bold">Network-AI Performance Dashboard</span></h1>
           </li>
         </ul>
-        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-bs-toggle="offcanvas">
-          <span class="mdi mdi-menu"></span>
-        </button>
       </div>
     </nav>
-    <!-- partial -->
+
 
     <div class="container-fluid page-body-wrapper">
-      <!-- partial:../../partials/_settings-panel.html -->
-      
-      <!-- partial -->
-      <!-- partial:../../partials/_sidebar.html -->
+      <div id="right-sidebar" class="settings-panel">
+        <i class="settings-close ti-close"></i>
+      </div>
+
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
+
           <li class="nav-item">
             <a class="nav-link" href="{% url 'curd:index' %}">
               <i class="mdi mdi-grid-large menu-icon"></i>
@@ -65,12 +62,12 @@
           <li class="nav-item nav-category">Network-AI-Toolkit</li>
 
           <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
-              <i class="menu-icon mdi mdi-table"></i>
+            <a class="nav-link" data-bs-toggle="collapse" href="#chronos" aria-expanded="false" aria-controls="chronos">
+              <i class="menu-icon mdi mdi-card-text-outline"></i>
               <span class="menu-title">Chronos</span>
               <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="tables">
+            <div class="collapse" id="chronos">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="{% url 'curd:chronos_performance' %}"> Performance</a></li>
                 <li class="nav-item"> <a class="nav-link" href="{% url 'curd:chronos_accuracy' %}"> Accuracy</a></li>
@@ -78,32 +75,43 @@
             </div>
           </li>
 
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#naal" aria-expanded="false" aria-controls="naal">
+              <i class="menu-icon mdi mdi-card-text-outline"></i>
+              <span class="menu-title">NAAL</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="naal">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="{% url 'curd:naal_performance' %}"> Performance</a></li>
+              </ul>
+            </div>
+          </li>
         </ul>
       </nav>
-      <!-- table -->
+
+      <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
+          {% block base_content %}
 
-            {% block base_content %}
-
-            {% endblock base_content %}
+          {% endblock base_content %}
+        </div>
         <!-- content-wrapper ends -->
-        <!-- partial:../../partials/_footer.html -->
+
         <footer class="footer">
           <div class="d-sm-flex justify-content-center justify-content-sm-between">
             <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Project created in 2022-09</span>
             <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Powered by&nbsp;♂</span>
           </div>
         </footer>
+
         <!-- partial -->
       </div>
-      <!-- table end-->
-      </div>>
       <!-- main-panel ends -->
     </div>
     <!-- page-body-wrapper ends -->
   </div>
-
   <script src="{% static 'curd/js/vendor.bundle.base.js' %}"></script>
   <script src="{% static 'curd/js/bootstrap-datepicker.min.js' %}"></script>
   <script src="{% static 'curd/js/off-canvas.js' %}"></script>
@@ -111,11 +119,9 @@
   <script src="{% static 'curd/js/template.js' %}"></script>
   <script src="{% static 'curd/js/settings.js' %}"></script>
   <script src="{% static 'curd/js/todolist.js' %}"></script>
-
   {% block script %}
 
   {% endblock script %}
-
 </body>
 
 </html>
