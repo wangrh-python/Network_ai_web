@@ -13,7 +13,7 @@ urlpatterns = [
     path('chronos/accuracy/view/', views.chronos_accuracy_view, name='chronos_accuracy_view'),
     path('naal/performance/', views.naal_performance, name='naal_performance'),
     path('naal/performance/view/', views.naal_performance_view, name='naal_performance_view'),
-
+    path('upload/', views.upload, name='upload'),
 ]
 
 

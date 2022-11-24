@@ -100,6 +100,12 @@
         <!-- content-wrapper ends -->
 
         <footer class="footer">
+          <div>
+            <form id="form"  enctype="multipart/form-data" action="{% url 'curd:upload' %}" method="post">
+              <p><input type="file"  name="file"></p>
+                 <input type="submit" name="提交">
+            </form>
+          </div>
           <div class="d-sm-flex justify-content-center justify-content-sm-between">
             <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Project created in 2022-09</span>
             <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Powered by&nbsp;♂</span>
