@@ -1,0 +1,277 @@
+{% extends "curd/base.html" %}
+
+{% load static %}
+
+{% block base_title %}
+    <title>Charts</title>
+    <meta charset="utf-8" />
+{% endblock base_title %}
+
+{% block base_content %}
+    <div class="row">
+
+      <div class="col-md-6 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Chronos Performance Charts Menu 1</h4>
+            <!-- <p class="card-description">
+              Basic form layout
+            </p> -->
+            <form class="forms-sample" method="post" action="{% url 'curd:charts_view'%}">
+                {% csrf_token %}
+                <div class="form-group">
+                  <label for="exampleInputUsername1">Platform</label>
+                  <select class="form-control" id="platform1">
+                    <option value="icl">IceLake</option>
+                    <option value="spr">Sapphire Rapids</option>
+                  </select>
+                </div>
+
+              <div class="form-group">
+                <label for="exampleInputPassword1">Framework</label>
+                <select class="form-control" id="framework1">
+                  <option value="pytorch_without_automl">PyTorch without AutoML</option>
+                  <option value="onnx_without_automl">ONNX without AutoML</option>
+                  <option value="openvino_without_automl">OpenVINO without AutoML</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="exampleInputConfirmPassword1">Date</label>
+                <select class="form-control" id="date1">
+                  <option value="WW40">WW40</option>
+                  <option value="WW43">WW43</option>
+                  <option value="WW46">WW46</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="exampleInputConfirmPassword1">Model</label>
+                <select class="form-control" id="model1">
+                  <option value="lstm">LSTM</option>
+                  <option value="seq2seq">Seq2Seq</option>
+                  <option value="tcn">TCN</option>
+                  <option value="mtnet">MTNet</option>
+                  <option value="prophet">Prophet</option>
+                  <option value="arima">ARIMA</option>
+                </select>
+              </div>
+
+              <div class="form-group col-sm-12">
+                <button type="button" class="btn btn-outline-success btn-fw col-sm-12" onclick="chronos_p_charts1()">Select</button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Chronos Performance Charts Menu 2</h4>
+            <!-- <p class="card-description">
+              Basic form layout
+            </p> -->
+            <form class="forms-sample" method="post" action="{% url 'curd:charts_view'%}">
+                {% csrf_token %}
+                <div class="form-group">
+                  <label for="exampleInputUsername1">Platform</label>
+                  <select class="form-control" id="platform2">
+                    <option value="icl">IceLake</option>
+                    <option value="spr">Sapphire Rapids</option>
+                  </select>
+                </div>
+
+              <div class="form-group">
+                <label for="exampleInputPassword1">Framework</label>
+                <select class="form-control" id="framework2">
+                  <option value="pytorch_without_automl">PyTorch without AutoML</option>
+                  <option value="onnx_without_automl">ONNX without AutoML</option>
+                  <option value="openvino_without_automl">OpenVINO without AutoML</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="exampleInputConfirmPassword1">Date</label>
+                <select class="form-control" id="date2">
+                  <option value="WW40">WW40</option>
+                  <option value="WW43">WW43</option>
+                  <option value="WW46">WW46</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="exampleInputConfirmPassword1">Model</label>
+                <select class="form-control" id="model2">
+                  <option value="lstm">LSTM</option>
+                  <option value="seq2seq">Seq2Seq</option>
+                  <option value="tcn">TCN</option>
+                  <option value="mtnet">MTNet</option>
+                  <option value="prophet">Prophet</option>
+                  <option value="arima">ARIMA</option>
+                </select>
+              </div>
+
+              <div class="form-group col-sm-12">
+                <button type="button" class="btn btn-outline-success btn-fw col-sm-12" onclick="chronos_p_charts2()">Select</button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Chronos Performance Charts Data Table</h4>
+            <div class="table-responsive">
+              <table class="table table-hover table-sm">
+                <tbody>
+                    <tr>
+                        <th class="table-light">Menu</th>
+                        <th class="text-danger table-success">1</th>
+                        <th class="text-info table-warning">2</th>
+                    </tr>
+                  <tr>
+                    <th class="table-light">Platform</th>
+                    <td class="text-danger table-success" id="m1p"></td>
+                    <td class="text-info table-warning" id="m2p"></td>
+                  </tr>
+                  <tr>
+                    <th class="table-light">Model</th>
+                    <td class="text-danger table-success" id="m1m"></td>
+                    <td class="text-info table-warning" id="m2m"></td>
+                  </tr>
+                  <tr>
+                    <th class="table-light">Model precision</th>
+                    <td class="text-danger table-success" id="m1mp"></td>
+                    <td class="text-info table-warning" id="m2mp"></td>
+                  </tr>
+                  <tr>
+                    <th class="table-light">look_back / horizon</th>
+                    <td class="text-danger table-success" id="m1lh"></td>
+                    <td class="text-info table-warning" id="m2lh"></td>
+                  </tr>
+                  <tr>
+                    <th class="table-light">Training Time</th>
+                    <td class="text-danger table-success" id="m1tt"></td>
+                    <td class="text-info table-warning" id="m2tt"></td>
+                  </tr>
+                  <tr>
+                    <th class="table-light">Throughput</th>
+                    <td class="text-danger table-success" id="m1t"></td>
+                    <td class="text-info table-warning" id="m2t"></td>
+                  </tr>
+                  <tr>
+                    <th class="table-light">Latency</th>
+                    <td class="text-danger table-success" id="m1l"></td>
+                    <td class="text-info table-warning" id="m2l"></td>
+                  </tr>
+                  <tr>
+                    <th class="table-light">Date</th>
+                    <td class="text-danger table-success" id="m1date"></td>
+                    <td class="text-info table-warning" id="m2date"></td>
+                  </tr>
+                  <tr></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+{% endblock base_content %}
+
+{% block script %}
+  <script type="text/javascript">
+
+      $.ajaxSetup({
+        data:{csrfmiddlewaretoken:'{{ csrf_token }}'}
+    })
+
+    function chronos_p_charts1() {
+      let platform = $('#platform1').val();
+      let framework = $('#framework1').val();
+      let date = $('#date1').val();
+      let model = $('#model1').val();
+
+      $.ajax({
+          type:'POST',
+          url:'{% url "curd:charts_view" %}',
+          data:{'platform':platform,'model':model,'framework':framework,'date':date},
+          dataType:'json',
+          success: function (json_list_array) {
+            rm_json_data1();
+            add_json_data1(json_list_array);
+          }
+      })
+    }
+
+    function add_json_data1(json_list_array) {
+
+      for (let i=0;i<json_list_array.length;i++){
+        
+        $('#m1p').text(json_list_array[i].platform);
+        $('#m1m').text(json_list_array[i].model);
+        $('#m1mp').text(json_list_array[i].model_precision);
+        $('#m1lh').append("<p>" +json_list_array[i].config+ "</p>");
+        $('#m1tt').append("<p>" +json_list_array[i].training_time+ "</p>");
+        $('#m1t').append("<p>" +json_list_array[i].Throughput+ "</p>");
+        $('#m1l').append("<p>" +json_list_array[i].Latency+ "</p>");
+        $('#m1date').text(json_list_array[i].test_date);
+      }
+    }
+    
+    function rm_json_data1(){
+      $('#m1lh').empty();
+      $('#m1tt').empty();
+      $('#m1t').empty();
+      $('#m1l').empty();
+    }
+
+    function chronos_p_charts2() {
+      let platform = $('#platform2').val();
+      let framework = $('#framework2').val();
+      let date = $('#date2').val();
+      let model = $('#model2').val();
+
+      $.ajax({
+          type:'POST',
+          url:'{% url "curd:charts_view" %}',
+          data:{'platform':platform,'model':model,'framework':framework,'date':date},
+          dataType:'json',
+          success: function (json_list_array) {
+            rm_json_data2();
+            add_json_data2(json_list_array);
+          }
+      })
+    }
+
+    function add_json_data2(json_list_array) {
+
+      for (let i=0;i<json_list_array.length;i++){
+        
+        $('#m2p').text(json_list_array[i].platform);
+        $('#m2m').text(json_list_array[i].model);
+        $('#m2mp').text(json_list_array[i].model_precision);
+        $('#m2lh').append("<p>" +json_list_array[i].config+ "</p>");
+        $('#m2tt').append("<p>" +json_list_array[i].training_time+ "</p>");
+        $('#m2t').append("<p>" +json_list_array[i].Throughput+ "</p>");
+        $('#m2l').append("<p>" +json_list_array[i].Latency+ "</p>");
+        $('#m2date').text(json_list_array[i].test_date);
+      }
+    }
+    
+    function rm_json_data2(){
+      $('#m2lh').empty();
+      $('#m2tt').empty();
+      $('#m2t').empty();
+      $('#m2l').empty();
+    }
+  </script>
+{% endblock script %}
