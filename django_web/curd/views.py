@@ -108,3 +108,35 @@ def naal_performance_view(request):
     else:
             return HttpResponse('<h1>你在干什么</h1>')
 
+
+def charts(request):
+
+    return render(request, 'curd/ECharts.html')
+
+
+def charts_view(request):
+    if request.method == 'POST':
+        platform = request.POST.get('platform')
+        model = request.POST.get('model')
+        framework = request.POST.get('framework')
+        date = request.POST.get('date')
+        m_l = []
+        j_l = []
+        c = connection.cursor()
+        # write Source SQL
+        c.execute("select mi.platform,td.model,td.model_precision,td.config,fw.training_time,fw.Throughput,\
+                    fw.Latency,fw.test_date from tk_data_type td \
+                    left join "+ framework + " fw on td.data_id = fw.type_id \
+                    left join  machine_info mi on fw.machine_id = mi.machine_id \
+                    where td.model = %s and fw.test_date = %s and mi.platform = %s;", [model, date, platform,])
+        columns = [col[0] for col in c.description]
+        data_list = [dict(zip(columns, row)) for row in c.fetchall()]
+        m_l.append(data_list)
+
+        for i in m_l:
+            for j in i:
+                j_l.append(j)
+        json_list = json.dumps(j_l)
+        return HttpResponse(json_list)
+    else:
+            return HttpResponse('<h1>你在干什么</h1>')
