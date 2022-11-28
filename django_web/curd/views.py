@@ -111,7 +111,7 @@ def naal_performance_view(request):
 
 def charts(request):
 
-    return render(request, 'curd/ECharts.html')
+    return render(request, 'curd/Compare.html')
 
 
 def charts_view(request):
