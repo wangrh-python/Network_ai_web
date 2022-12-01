@@ -152,28 +152,28 @@
           let platform = $('#platform').val();
           let framework = $('#framework').val();
           let date = $('#date').val();
-            let model = $('input:checkbox[name="model"]:checked').map(function () {return $(this).val()}).get();
-            let model_box = document.getElementsByName("model");
-            let box = "";
-            for (let i=0;i<model_box.length;i++){
-                if (model_box[i].checked == true){
-                    box+=model_box[i].value+",";
-                }
-            }
-            if (box=="") {
-                return false
-            }
-            $.ajax({
-                type:'POST',
-                url:'{% url "curd:chronos_performance_view" %}',
-                traditional: true,
-                data:{'platform':platform,'model':model,'framework':framework,'date':date},
-                dataType:'json',
-                success: function (json_list_array) {
-                    rm_tr();
-                    create_tr(json_list_array);
-                }
-            })
+          let model = $('input:checkbox[name="model"]:checked').map(function () {return $(this).val()}).get();
+          let model_box = document.getElementsByName("model");
+          let box = "";
+          for (let i=0;i<model_box.length;i++){
+              if (model_box[i].checked == true){
+                  box+=model_box[i].value+",";
+              }
+          }
+          if (box=="") {
+              return false
+          }
+          $.ajax({
+              type:'POST',
+              url:'{% url "curd:chronos_performance_view" %}',
+              traditional: true,
+              data:{'platform':platform,'model':model,'framework':framework,'date':date},
+              dataType:'json',
+              success: function (json_list_array) {
+                  rm_tr();
+                  create_tr(json_list_array);
+              }
+          })
         }
 
         function rm_tr() {

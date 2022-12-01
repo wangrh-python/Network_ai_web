@@ -19,13 +19,11 @@
   <link rel="stylesheet" href="{% static 'curd/css/simple-line-icons.css' %}">
   <link rel="stylesheet" href="{% static 'curd/css/vendor.bundle.base.css' %}">
   <link rel="stylesheet" href="{% static 'curd/css/style.css' %}">
-  <link rel="stylesheet" href="{% static 'curd/img/favicon.png' %}">
+  <link rel="stylesheet" href="{% static 'curd/img/favicon.ico' %}">
 </head>
 
 <body>
   <div class="container-scroller">
-    <!-- partial:../../partials/_navbar.html -->
-    
     <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
         <div class="me-3">
@@ -64,13 +62,27 @@
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#chronos" aria-expanded="false" aria-controls="chronos">
               <i class="menu-icon mdi mdi-card-text-outline"></i>
-              <span class="menu-title">Chronos</span>
+              <span class="menu-title">Chronos Data</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="chronos">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="{% url 'curd:chronos_performance' %}"> Performance</a></li>
                 <li class="nav-item"> <a class="nav-link" href="{% url 'curd:chronos_accuracy' %}"> Accuracy</a></li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#Compare" aria-expanded="false" aria-controls="Compare">
+              <i class="menu-icon mdi mdi-chart-line"></i>
+              <span class="menu-title">Chronos Compare</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="Compare">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="{% url 'curd:chronos_performance_compare' %}"> Performance</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'curd:chronos_accuracy_compare' %}"> Accuracy</a></li>
               </ul>
             </div>
           </li>
@@ -89,11 +101,12 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'curd:charts' %}">
-              <i class="menu-icon mdi mdi-chart-line"></i>
-              <span class="menu-title">Compare</span>
+            <a class="nav-link" href="{% url 'curd:chronos_upload' %}">
+              <i class="menu-icon mdi mdi-upload"></i>
+              <span class="menu-title">Chronos Data Upload</span>
             </a>
           </li>
+          
         </ul>
       </nav>
 
@@ -127,6 +140,7 @@
   <script src="{% static 'curd/js/template.js' %}"></script>
   <script src="{% static 'curd/js/settings.js' %}"></script>
   <script src="{% static 'curd/js/todolist.js' %}"></script>
+  <script src="{% static 'curd/js/background_special_effects.js' %}"></script>
 
   {% block script %}
 

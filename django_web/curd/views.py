@@ -1,93 +1,59 @@
-from datetime import date
-from django.http import HttpResponse
+from django.http import HttpResponse, FileResponse, Http404
 from django.shortcuts import render
 from django.db import connection
-import json
+from django.conf import settings
+from curd.upload_excel import UploadExcelData
+import json, os
 
 
+# Jump HW_Configuration.html
 def index(request):
 
     return render(request, 'curd/HW_Configuration.html')
 
 
+# Jump chronos_Performance.html
 def chronos_performance(request):
 
-    return render(request, 'curd/chronos_Performance.html')
+    return render(request, 'curd/Chronos_Performance.html')
 
 
+# obtain parameter
 def chronos_performance_view(request):
     if request.method == 'POST':
         platform = request.POST.get('platform')
-        models_list = request.POST.getlist('model')
+        model = request.POST.getlist('model')
         framework = request.POST.get('framework')
         date = request.POST.get('date')
-        c = connection.cursor()
-        m_l = []
-        j_l = []
-        for i in models_list:
-            # write Source SQL
-            c.execute("select mi.platform,td.model,td.model_precision,td.config,fw.training_time,fw.Throughput,\
-                       fw.Latency,fw.test_date from tk_data_type td \
-                       left join "+ framework + " fw on td.data_id = fw.type_id \
-                       left join  machine_info mi on fw.machine_id = mi.machine_id \
-                       where td.model = %s and fw.test_date = %s and mi.platform = %s;", [i, date, platform,])
-            columns = [col[0] for col in c.description]
-            data_list = [dict(zip(columns, row)) for row in c.fetchall()]
-            m_l.append(data_list)
-
-        for i in m_l:
-            for j in i:
-                j_l.append(j)
-
-        json_list = json.dumps(j_l)
-        return HttpResponse(json_list)
-
+        return chronos_performance_data(platform, model, framework, date)
     else:
         return HttpResponse('<h1>你在干什么</h1>')
 
 
+# Jump chronos_Accuracy.html
 def chronos_accuracy(request):
 
-    return render(request, 'curd/chronos_Accuracy.html')
+    return render(request, 'curd/Chronos_Accuracy.html')
 
 
+# obtain parameter
 def chronos_accuracy_view(request):
     if request.method == 'POST':
         platform = request.POST.get('platform')
-        models_list = request.POST.getlist('model')
+        model = request.POST.getlist('model')
         framework = request.POST.get('framework')
         date = request.POST.get('date')
-        m_l = []
-        j_l = []
-
-        c = connection.cursor()
-        for i in models_list:
-            # write Source SQL
-            sql = "select mi.platform,td.model,td.model_precision,td.config,fw.training_time, \
-                    fw.sMAPE_for_AvgRate,fw.sMAPE_for_total,fw.MSE_for_AvgRate,fw.MSE_for_total,fw.test_date \
-                    from tk_data_type td \
-                    left join "+ framework +" fw on td.data_id = fw.type_id \
-                    left join  machine_info mi on fw.machine_id = mi.machine_id where td.model = \
-                    '{model}' and fw.test_date = '{date}' and mi.platform = '{platform}';".format(model=i, date=date, platform=platform,)
-            c.execute(sql)
-            columns = [col[0] for col in c.description]
-            data_list = [dict(zip(columns, row)) for row in c.fetchall()]
-            m_l.append(data_list)
-
-        for i in m_l:
-            for j in i:
-                j_l.append(j)
-        json_list = json.dumps(j_l)
-        return HttpResponse(json_list)
+        return chronos_accuracy_data(platform, model, framework, date)
     else:
-            return HttpResponse('<h1>你在干什么</h1>')
+        return HttpResponse('<h1>你在干什么</h1>')
 
-
+# Jump naal_Performance.html
 def naal_performance(request):
 
-    return render(request, 'curd/naal_Performance.html')
+    return render(request, 'curd/NAAL_Performance.html')
 
 
+# naal performance view logic
 def naal_performance_view(request):
     if request.method == 'POST':
         platform = request.POST.get('platform')
@@ -106,37 +72,123 @@ def naal_performance_view(request):
         json_list = json.dumps(data_list)
         return HttpResponse(json_list)
     else:
-            return HttpResponse('<h1>你在干什么</h1>')
+        return HttpResponse('<h1>你在干什么</h1>')
 
 
-def charts(request):
+# Jump Chronos_Performance_Compare.html
+def chronos_performance_compare(request):
 
-    return render(request, 'curd/Compare.html')
+    return render(request, 'curd/Chronos_Performance_Compare.html')
 
 
-def charts_view(request):
+# obtain parameter
+def chronos_performance_compare_view(request):
     if request.method == 'POST':
         platform = request.POST.get('platform')
-        model = request.POST.get('model')
+        model = request.POST.getlist('model')
         framework = request.POST.get('framework')
         date = request.POST.get('date')
-        m_l = []
-        j_l = []
-        c = connection.cursor()
+        return chronos_performance_data(platform, model, framework, date)
+    else:
+        return HttpResponse('<h1>你在干什么</h1>')
+
+
+# Jump Chronos_Accuracy_Compare.html
+def chronos_accuracy_compare(request):
+    return render(request, 'curd/Chronos_Accuracy_Compare.html')
+
+
+# obtain parameter
+def chronos_accuracy_compare_view(request):
+    if request.method == 'POST':
+        platform = request.POST.get('platform')
+        model = request.POST.getlist('model')
+        framework = request.POST.get('framework')
+        date = request.POST.get('date')
+        return chronos_accuracy_data(platform, model, framework, date)
+    else:
+        return HttpResponse('<h1>你在干什么</h1>')
+
+
+# chronos performance data logic
+def chronos_performance_data(platform, model, framework, date):
+    c = connection.cursor()
+    m_l = []
+    j_l = []
+    for i in model:
         # write Source SQL
         c.execute("select mi.platform,td.model,td.model_precision,td.config,fw.training_time,fw.Throughput,\
-                    fw.Latency,fw.test_date from tk_data_type td \
-                    left join "+ framework + " fw on td.data_id = fw.type_id \
-                    left join  machine_info mi on fw.machine_id = mi.machine_id \
-                    where td.model = %s and fw.test_date = %s and mi.platform = %s;", [model, date, platform,])
+                fw.Latency,fw.test_date from tk_data_type td \
+                left join "+ framework + " fw on td.data_id = fw.type_id \
+                left join  machine_info mi on fw.machine_id = mi.machine_id \
+                where td.model = %s and fw.test_date = %s and mi.platform = %s;", [i, date, platform,])
         columns = [col[0] for col in c.description]
         data_list = [dict(zip(columns, row)) for row in c.fetchall()]
         m_l.append(data_list)
+    for i in m_l:
+        for j in i:
+            j_l.append(j)
+    json_list = json.dumps(j_l)
+    return HttpResponse(json_list)
 
-        for i in m_l:
-            for j in i:
-                j_l.append(j)
-        json_list = json.dumps(j_l)
-        return HttpResponse(json_list)
-    else:
-            return HttpResponse('<h1>你在干什么</h1>')
+
+# chronos accuracy data logic
+def chronos_accuracy_data(platform, model, framework, date):
+    c = connection.cursor()
+    m_l = []
+    j_l = []
+    for i in model:
+        # write Source SQL
+        sql = "select mi.platform,td.model,td.model_precision,td.config,fw.training_time, \
+                fw.sMAPE_for_AvgRate,fw.sMAPE_for_total,fw.MSE_for_AvgRate,fw.MSE_for_total,fw.test_date \
+                from tk_data_type td \
+                left join "+ framework +" fw on td.data_id = fw.type_id \
+                left join  machine_info mi on fw.machine_id = mi.machine_id where td.model = \
+                '{model}' and fw.test_date = '{date}' and mi.platform = '{platform}';".format(model=i, date=date, platform=platform,)
+        c.execute(sql)
+        columns = [col[0] for col in c.description]
+        data_list = [dict(zip(columns, row)) for row in c.fetchall()]
+        m_l.append(data_list)
+    for i in m_l:
+        for j in i:
+            j_l.append(j)
+    json_list = json.dumps(j_l)
+    return HttpResponse(json_list)
+
+
+def chronos_upload(request):
+
+    return render(request, 'curd/Chronos_UPLoad.html')
+
+
+# chronos upload execl data to mysql
+def chronos_upload_view(request):
+    if request.method == 'POST':
+        file = request.FILES.get('file')
+        if not os.path.exists(settings.UPLOAD_ROOT):
+                os.makedirs(settings.UPLOAD_ROOT)
+        try:
+            with open(settings.UPLOAD_ROOT + "/" + file.name, 'wb') as f:
+                for i in file.readlines():
+                    f.write(i)
+            ue = UploadExcelData(filename=file.name)
+            ue.main()
+            return HttpResponse('yes')
+        except Exception as e:
+            return HttpResponse(e)
+    return HttpResponse('no')
+
+
+# chronos execl download
+def chronos_execl_download(request):
+    # file path
+    file_path = str(settings.BASE_DIR) + r"\curd\static\curd\download\Network_AI_toolkit_Chronos_Performance_test_WW00.xlsx"
+    try:
+        f = open(file_path, 'rb')
+        r = FileResponse(f, as_attachment=True, filename="Network_AI_toolkit_Chronos_Performance_test_WW00.xlsx")
+        response = FileResponse(open(file_path, 'rb'))
+        response['content_type'] = "application/octet-stream"
+        response['Content-Disposition'] = 'attachment; filename=' + os.path.basename(file_path)
+        return r
+    except Exception as e:
+        raise  Http404("Download error")

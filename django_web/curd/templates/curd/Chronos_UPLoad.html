@@ -1,0 +1,86 @@
+{% extends "curd/base.html" %}
+
+{% load static %}
+
+{% block base_title %}
+    <title>Chronos Data Upload</title>
+{% endblock base_title %}
+
+{% block base_content %}
+    <div class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Chronos Data Upload (Performance and Accuracy)</h4>
+                <p class="card-description">
+                    Put the filled execl file into the data according to the specified format, upload it and store it in the database
+                </p>
+                <form class="forms-sample" enctype="multipart/form-data" method="post" action="{% url 'curd:chronos_upload_view'%}" id="form_upload">
+                    {% csrf_token %}
+
+                <div class="form-group">
+                    <div class="form-group input-group-lg">
+                        <input class="form-control form-control-lg" id="file_upload" type="file">
+                    </div>
+                </div>
+                
+                <div class="form-group col-sm-12">
+                    <button type="button" class="btn btn-outline-info btn-fw col-sm-12" onclick="chronos_upload()">File UPload</button>
+                </div>
+
+                <div class="form-group col-sm-12">
+                    <a class="btn btn-warning btn-fw col-sm-12" href="{% url "curd:chronos_download" %}" role="button">Download the execl template</a>
+                </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+{% endblock base_content %}
+
+{% block script %}
+    <script>
+
+        $.ajaxSetup({
+            data:{csrfmiddlewaretoken:'{{ csrf_token }}'}
+        })
+        function chronos_upload() {
+            let form_data = new FormData();
+            form_data.append("file", document.getElementById("file_upload").files[0]);
+            let f = $('#file_upload').get(0).files[0];
+            if (f){
+                $.ajax({
+                    type:'POST',
+                    url:'{% url "curd:chronos_upload_view" %}',
+                    data: form_data,
+                    processData: false,
+                    contentType: false,
+                    success: function (upload_info) {
+                        if (upload_info){
+                            alert("File upload succeeded!");
+                        }
+                        else {
+                            alert(upload_info);
+                        }
+                    }
+                })
+            }
+            else{
+                alert("Please select a file!");
+                return false
+            }
+        }
+        function chronos_down() {
+            $.ajax({
+                type:'GET',
+                url:'{% url "curd:chronos_download" %}',
+                success: function (download_info) {
+
+                }
+            })
+        }
+  </script>
+{% endblock script %}
