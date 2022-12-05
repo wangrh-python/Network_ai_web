@@ -140,7 +140,11 @@
   <script src="{% static 'curd/js/template.js' %}"></script>
   <script src="{% static 'curd/js/settings.js' %}"></script>
   <script src="{% static 'curd/js/todolist.js' %}"></script>
-  <script src="{% static 'curd/js/background_special_effects.js' %}"></script>
+
+  {% comment %} special_effects {% endcomment %}
+  <script src="{% static 'curd/js/mouse_love.js' %}"></script>
+  {% comment %} <script src="{% static 'curd/js/mouse_ball.js' %}"></script> {% endcomment %}
+  {% comment %} <script src="{% static 'curd/js/background_special_effects.js' %}"></script> {% endcomment %}
 
   {% block script %}
 
