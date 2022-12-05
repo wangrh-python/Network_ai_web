@@ -15,7 +15,7 @@ urlpatterns = [
     # Chronos execl data
     path('chronos/upload/', views.chronos_upload, name='chronos_upload'),
     path('chronos/upload/view/', views.chronos_upload_view, name='chronos_upload_view'),
-    path('chronos/download/', views.chronos_execl_download, name='chronos_download'),
+    path('chronos/download/', views.chronos_execl_download, name='chronos_execl_download'),
     # Chronos compare
     path('chronos/performance/compare/', views.chronos_performance_compare, name='chronos_performance_compare'),
     path('chronos/performance/compare/view/', views.chronos_performance_compare_view, name='chronos_performance_compare_view'),
