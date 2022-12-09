@@ -21,5 +21,6 @@ RUN apt-get update && \
 RUN pip3 install --upgrade pip && \
     pip3 install Django==3.2 \
     mysqlclient \
-    pandas
+    pandas \
+    openpyxl
 
