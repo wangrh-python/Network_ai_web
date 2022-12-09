@@ -7,14 +7,12 @@ import pandas as pd
 class UploadExcelData():
 
     def __init__(self, filename):
-        filename = settings.UPLOAD_ROOT + "\\" + filename
-        self.df = pd.read_excel('%s'%filename, index_col=0, sheet_name="Chronos_Performance_test", usecols="G:AH")
-        #print(pd.__version__)
+        self.df = pd.read_excel(filename, index_col=0, sheet_name="Chronos_Performance_test", usecols="G:AH")
         self.week = self.df.values[10][26]
         self.start_line = 1
         self.end_line = 1
 
-    def pytorch_with_automl(self, machine_id,):
+    def pytorch_with_automl(self, machine_id):
         df = self.df
         machine_id = machine_id
         week = self.week

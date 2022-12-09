@@ -165,14 +165,18 @@ def chronos_upload(request):
 def chronos_upload_view(request):
     if request.method == 'POST':
         file = request.FILES.get('file')
+        file_path = settings.UPLOAD_ROOT + file.name
         if not os.path.exists(settings.UPLOAD_ROOT):
                 os.makedirs(settings.UPLOAD_ROOT)
         try:
-            with open(settings.UPLOAD_ROOT + "/" + file.name, 'wb') as f:
+            with open(file_path, 'wb') as f:
                 for i in file.readlines():
                     f.write(i)
-            ue = UploadExcelData(filename=file.name)
-            ue.main()
+            try:
+                ue = UploadExcelData(filename=file_path)
+                ue.main()
+            except Exception as e:
+                return HttpResponse(e)
             return HttpResponse('yes')
         except Exception as e:
             return HttpResponse(e)
@@ -182,7 +186,7 @@ def chronos_upload_view(request):
 # chronos execl download
 def chronos_execl_download(request):
     # file path
-    file_path = str(settings.BASE_DIR) + r"\curd\static\curd\download\Network_AI_toolkit_Chronos_Performance_test_WW00.xlsx"
+    file_path = str(settings.BASE_DIR) + r"/curd/static/curd/download/Network_AI_toolkit_Chronos_Performance_test_WW00.xlsx"
     try:
         f = open(file_path, 'rb')
         r = FileResponse(f, as_attachment=True, filename="Network_AI_toolkit_Chronos_Performance_test_WW00.xlsx")
