@@ -59,8 +59,9 @@
                     processData: false,
                     contentType: false,
                     success: function (upload_info) {
-                        if (upload_info){
+                        if (upload_info == "yes"){
                             alert("File upload succeeded!");
+			    alert("File Data upload DataBase succeeded!");
                         }
                         else {
                             alert(upload_info);
