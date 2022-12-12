@@ -81,7 +81,7 @@ DATABASES = {
         'NAME': 'network_ai',
         'USER': 'root',
         'PASSWORD': '123456',
-        'HOST': '10.67.115.45',
+        'HOST': '',
         'PORT': '3306',
     }
 }
